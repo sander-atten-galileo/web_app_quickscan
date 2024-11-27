@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>Website Screenshot Tool</h1>
+    <input type="text" id="url" placeholder="Enter website URL">
+    <button onclick="getScreenshot()">Capture Screenshot</button>
+    <script>
+        async function getScreenshot() {
+            const url = document.getElementById('url').value;
+            const response = await fetch('/screenshot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+            const blob = await response.blob();
+            const urlObject = URL.createObjectURL(blob);
+            window.open(urlObject, '_blank');
+        }
+    </script>
+</body>
+
+</html>
